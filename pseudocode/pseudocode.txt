@@ -1,0 +1,71 @@
+BlackJack CardGame
+
+Define required constants
+
+Define required variables used to track the state of the CardGame
+
+     player?
+     dealer?
+     cards?
+     bet?
+     amount of chips?
+     hit?
+     stand?
+     amount of money player starts with?
+     deal button?
+     win?
+     message?
+     game status?
+
+Store elements on the page as variables that will be accessed in code. 
+
+Upon loading the app should
+    1. initialize the state variables
+        - this should initialize the rendering of the bet options
+        - initialize the betting power as $500
+        - initialize the rendering of the cards face down
+        - initialize a play game button (deal)
+    2. Render those values to the page
+        - will need to render the cards face down
+        - render the deal button to display while the game is not in progress.
+
+    3. wait for the user to place bet
+
+    4. Handle the player placing a bet
+
+    - 2 sets of chips?
+    - 1 value is $50 the other is $100
+
+    5. wait for user to hit deal button
+
+    6. Once the play button is hit
+        - render the cards randomly
+        - 2 cards for player, 1 card for dealer, (order should be player, dealer, player or all at the same time?) wait for player to make decision
+
+
+
+    7. Handle the player making a decision (hit or stand)
+        -hit
+            
+            - player takes cards 
+            - game waits for another choice (hit/stand) 
+            - if cards reach over 21, player loses
+            - if 21, game checks for dealer tie, if not, player wins
+            
+        - stand
+            - same logic applies to dealer except
+            - dealer automatically stands if card sum is between 17-20
+            - if 21, game checks for player tie, if not, dealer wins
+
+            
+        
+    8. Logic checks for game winner
+        - if player wins
+        - chip sum gets updated to bet * 2
+        - display win message
+        - render deal button again
+
+    9. Game waits for user to click deal button
+
+
+
