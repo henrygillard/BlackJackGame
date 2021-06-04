@@ -1,0 +1,106 @@
+/* PSEUDO CODE FOR PROJECT 1 */
+
+/*----- constants -----*/
+//Define a class that states the values of each card in terms of points.
+//Define the array of cards containing 52 cards.
+
+
+/*----- app's state (variables) -----*/
+//Define an empty array called shuffled cards
+//Define an empty array called dealers hand
+//Define an empty array called players hand
+//Define a variable called dealerTotal
+//Define a variable called playerTotal
+//Define a variable called gameState
+
+//Define a variable called playerWins
+//Define a veriable called dealerWins
+
+/*----- cached element references -----*/
+//Cash the Win/Loss Ratio header
+//Cash the Hit Me & Stand & Reset Game buttons
+//Cash the Two DIV elements that will be storing the card images
+
+
+/*----- event listeners -----*/
+//Deal with the button event listeners
+//Hit me goes to the Hit me button pressed function
+//Stand goes to the stand button pressed function
+//reset game goes to the initialize function
+
+
+/*----- functions -----*/
+//Call Initialize Function
+
+//Initialize the state variables in the initialize function.
+    //Set playerHand and dealerHand as empty arrays
+    //set reset button property to hidden
+    //Set the shuffledCards array as the result of the manage Deck of cards function.
+    //Call the function that manages the deck
+    //Call the function that deals out starting hands
+    //Call the render Function
+    
+
+//Create helper function to manage the deck of cards
+    //In the manageDeck function, create a clone of the cardsArray constant.
+    //Until the clone is empty, generate a random number between 0 and the cardsArrayClone.length.
+    //Pop the random values into a new array, which will be the output.
+
+//Create helper function to deal out starting hands
+    //Pop the last two elements of the shuffledCards array into the dealersHand array
+    //Pop the last two elements of the shuffledCards array into the dealersHand array
+
+//Create helper function to determine the sum of an array. Accept an array as the sole argument
+    //Create a new array substituting the card literal with its points.
+    //Sum up the new array, and apply to new Variable called cardTotal
+    //if the hand has the Ace of Diamonds and the cardTotal is over 21, reduce points by 10.
+    //if the hand has the Ace of Hearts and the cardTotal is over 21, reduce points by 10.
+    //if the hand has the Ace of Spades and the cardTotal is over 21, reduce points by 10.
+    //if the hand has the Ace of Clubs and the cardTotal is over 21, reduce points by 10.
+    //Return cardTotal
+
+//Create helper function to check win conditions with two variables being arguments (playerTotal, dealerTotal)
+    //if playerTotal is greater than 21, set the game state equal to 'dealer wins'
+    //else if the dealerTotal is greater than 21, set the game state equal to 'player wins'
+    //else if gamestate is 'waiting to compare' compare the totals of player and dealer. 
+      //If the player is higher than dealer, set the game state equal to 'player wins'
+      //else, set the game state equal to 'dealer wins'
+//
+
+//Create a helper function to calculate and display win loss ratio
+    //if gameState = playerWins
+      //playerWins adds one
+    //else if gameState = dealerWins
+      //dealerWins adds one
+    //create an array with two values of [playerWins, dealerWins]
+    //set the Win Loss ratio header to a string of 'playerWins : dealerWins'
+
+//Create a render function to apply the values to the interface.
+    //set DealerTotal equal to sumOfArray function with the dealers hand as the argument
+    //set PlayerTotal equal to sumOfArray function with the players hand as the argument
+    //assign images based on each of the values in playersHand
+    //assign images based on each of the values in dealersHand
+    //call checkWinCons function with the playersHand
+    //If the gamestate is 'dealer wins'
+      //callEndgame Function with argument of 'dealer wins'
+    //else if the gamestate is 'player wins'
+      //callEndgame Function with argument of 'player wins'
+
+//Create a function when the hit Me button is pressed
+    //pop an element from the shuffled cards array into the playersHand
+    //call render function
+
+//Create a function when the stand button is pressed
+    //while dealerTotal < 17 Do
+      //pop an element from the shuffled cards array into the dealersHand
+      //call render function
+    //set gamestate is 'waiting to compare'
+    //render
+
+//Create an endgame function
+    //disable hit-me and stand buttons
+    //set reset game button property to visible
+    //call calculate win loss ration function
+
+
+/* Mustafa, Taylor, Henry, Andy */

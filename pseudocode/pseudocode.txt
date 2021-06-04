@@ -1,16 +1,16 @@
 BlackJack CardGame
 
 Define required constants
+-Master Deck - an array of 52 cards
+-player hand - an empty array?
+-dealer hand - an empty array?
 
 Define required variables used to track the state of the CardGame
 
-     player?
-     dealer?
-     cards?
+     playerTotal
+     dealerTotal
      bet?
      amount of chips?
-     hit?
-     stand?
      amount of money player starts with?
      deal button?
      win?
@@ -18,7 +18,10 @@ Define required variables used to track the state of the CardGame
      game status?
 
 Store elements on the page as variables that will be accessed in code. 
-
+    hit? - event listener?
+    stand? - event listener?
+    card div's (2)
+    
 Upon loading the app should
     1. initialize the state variables
         - this should initialize the rendering of the bet options
