@@ -1,7 +1,8 @@
 * {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-    border: solid;
+    
+    
     
    
 }
@@ -9,6 +10,8 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    border: solid;
+    
 }
 h1 {
     display: flex;
@@ -19,6 +22,7 @@ h1 {
 #dealer {
     display: flex;
     flex-direction: row; 
+    
 }
 #player {
     display: flex;
@@ -31,6 +35,8 @@ div.dealer-card {
     align-items: center;
    justify-content: center;
    margin-right: 10px;
+   border: solid;
+   margin-left: 10px;
    
     
 
@@ -42,6 +48,9 @@ div.player-card {
     align-items: center;
    justify-content: center;
    margin-right: 10px;
+   margin-top: 10px;
+   border: solid;
+   margin-left: 10px;
     
 
 }
@@ -53,6 +62,7 @@ div.player-card {
     width: 200px;
     height: 200px;
     margin-top: 50px;
+    border: solid;
 }
 #player-sum {
     display: flex;
@@ -62,6 +72,7 @@ div.player-card {
     width: 200px;
     height: 200px;
     margin-top: 50px;
+    border: solid;
 }
 /* body > div.dealer {
     display: inline-block;
