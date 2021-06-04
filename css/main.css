@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    border: solid;
+    
+   
+}
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dealer {
+    display: flex;
+    flex-direction: row; 
+}
+#player {
+    display: flex;
+    flex-direction: row; 
+}
+div.dealer-card {
+    display: flex;
+    height: 325px;
+    width: 200px;
+    align-items: center;
+   justify-content: center;
+   margin-right: 10px;
+   
+    
+
+}
+div.player-card {
+    display: flex;
+    height: 325px;
+    width: 200px;
+    align-items: center;
+   justify-content: center;
+   margin-right: 10px;
+    
+
+}
+#dealer-sum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+    margin-top: 50px;
+}
+#player-sum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+    margin-top: 50px;
+}
+/* body > div.dealer {
+    display: inline-block;
+    
+}
+body > div.player {
+    display: inline;
+    
+}
+
+body > #card1 {
+    width: 150px;
+    height: 225px;
+
+}
+
+body > div#card2 {
+    width: 150px;
+    height: 225px;
+
+}
+
+body > #card3 {
+    width: 150px;
+    height: 225px;
+
+}
+
+body > #card4 {
+    width: 150px;
+    height: 225px;
+
+} */
