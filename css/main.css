@@ -38,6 +38,7 @@ div.dealer-card {
    margin-right: 10px;
    border: solid;
    margin-left: 10px;
+  
    
     
 
@@ -52,10 +53,19 @@ div.player-card {
    border: solid;
    margin-left: 10px;
    margin-top: 10px;
+  
    
    
     
 
+}
+
+#pcard1 {
+  background-color: null;
+}
+
+#pcard2 {
+  background-color: null;
 }
 #dealer-sum {
     display: flex;
