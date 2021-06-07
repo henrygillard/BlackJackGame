@@ -1,9 +1,10 @@
 const suits = ['s', 'c', 'd', 'h'];
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
-const masterDeck = [];
+const masterDeck = buildMasterDeck();
 
 
 /*----- app's state (variables) -----*/
+let shuffledDeck;
 let playerHand;
 let dealerHand;
 let dealerSum;
@@ -16,8 +17,8 @@ let bet;
 /*----- cached element references -----*/
 const dealEl = document.querySelector("#deal");
 const headerEl = document.querySelector("h1");
-const player1CardEl = document.getElementById("pcard1");
-const player2CardEl = document.getElementById("pcard2");
+const playerCardEl = document.getElementById("pcards");
+const dealerCardEl = document.getElementById("dcards");
 const playerSumEl = document.getElementById("player-sum");
 const hitEl = document.querySelector("#hit");
 const standEl = document.querySelector("#stand");
@@ -27,7 +28,7 @@ document.querySelector("#deal").addEventListener("click", setDeal)
 /*----- functions -----*/
 init()
 function init() {
-   
+  shuffledDeck = getNewShuffledDeck(); 
   playerHand = [];
   dealerHand = [];
   playerSum = 0;
@@ -48,44 +49,52 @@ function setDeal() {
   hitEl.disabled = false;
   dealEl.disabled = true;
   headerEl.innerHTML = "Do you want to hit or stand?"
-  computeHand();
-
+  dealHand();
+    render();
  }
 
-function computeHand(hand) {
+function dealHand(hand) {
+    playerHand = [shuffledDeck.pop(), shuffledDeck.pop()]
+    dealerHand = [shuffledDeck.pop(), shuffledDeck.pop()]
+
+};
   
- // Iterate through the suits and ranks arrays //
-  suits.forEach(function(suit) {
-    ranks.forEach(function(rank) {
-      masterDeck.push({ // Push those into masterDeck object array //
-        face: `${suit}${rank}`,
-        value: Number(rank) 
-      })
-    })
-  }) 
-  hand = masterDeck[Math.floor(Math.random() * masterDeck.length)] // set hand parameter to random face value
+
   
-  player1CardEl.innerHTML = `${hand.face}` // Set card1 element to face value
-  player2CardEl.innerHTML = `${hand.face}` // Set card 2 element to face value
-  
-  console.log(masterDeck);
-  playerSum = hand.value + hand.value; // Set player sum to card 1 + card 2 value
-  playerSumEl.innerHTML = `${playerSum}`;
- 
-  render();
- 
-  // console.log(playerHand[1].value); This will give you the card value!
-  
-// playerSumEl.innerHTML = randomCard; // add the next values
-}
+
 function render() {
-  // console.log(masterDeck);
-//   let playerHand = 
-//   console.log(playerHand);
- ;
-  
- 
+    let cardsHtml = '';
+    playerHand.forEach(function(card) {
+        cardsHtml += `<div class="card ${card.face}"></div>`;
+    });
+    playerCardEl.innerHTML = cardsHtml;
+console.log(cardsHtml);
     
 };
 
 
+function getNewShuffledDeck() {
+    // Create a copy of the masterDeck (leave masterDeck untouched!)
+    const tempDeck = [...masterDeck];
+    const newShuffledDeck = [];
+    while (tempDeck.length) {
+      // Get a random index for a card still in the tempDeck
+      const rndIdx = Math.floor(Math.random() * tempDeck.length);
+      // Note the [0] after splice - this is because splice always returns an array and we just want the card object in that array
+      newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
+    }
+    return newShuffledDeck;
+  }
+
+  function buildMasterDeck() {
+      const deck = [];
+    suits.forEach(function(suit) {
+        ranks.forEach(function(rank) {
+          deck.push({ // Push those into masterDeck object array //
+            face: `${suit}${rank}`,
+            value: Number(rank) 
+          })
+        })
+      }) 
+      return deck;
+  } 

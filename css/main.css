@@ -97,3 +97,33 @@ div.player-card {
     
 }
 
+html, * {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 4px dotted grey;
+  }
+  
+  button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    color: grey;
+    border: 1px solid grey;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  button:hover {
+    background-color: grey;
+    color: white;
+  }
