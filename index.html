@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/main.js"></script>
+    <script defer src="js/main.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <title>BlackJack</title>
 </head>
 <body>
     <h1 id="msg">Welcome to BlackJack!</h1>
     <div id="dealer">
-        <div class="dealer-card">Dealer Card</div>
-        <div class="dealer-card">Dealer Card</div>
+        <div class="dealer-card" id="dcard1">Dealer Card</div>
+        <div class="dealer-card" id="dcard2">Dealer Card</div>
         <div id="dealer-sum" class="sum">Sum</div>
     </div>
     <div id="player">
-        <div class="player-card">Player Card</div>
-        <div class="player-card">Player Card</div>
+        <div class="player-card" id="pcard1">Player Card</div>
+        <div class="player-card" id="pcard1">Player Card</div>
         <div id="player-sum" class="sum">Sum</div>
+    </div>
+    <div id="bttns">
+        <button id="hit">HIT</button>
+        <button id="stand">STAND</button>
+        <button id="deal">DEAL</button>
     </div>
 </body>
 </html>

@@ -4,6 +4,7 @@
     
     
     
+    
    
 }
 body {
@@ -48,9 +49,11 @@ div.player-card {
     align-items: center;
    justify-content: center;
    margin-right: 10px;
-   margin-top: 10px;
    border: solid;
    margin-left: 10px;
+   margin-top: 10px;
+   
+   
     
 
 }
@@ -74,35 +77,13 @@ div.player-card {
     margin-top: 50px;
     border: solid;
 }
-/* body > div.dealer {
-    display: inline-block;
+
+#bttns {
+    display: flex;
+    flex-direction: column;
+    
+    width: 200px;
+    margin: 10px 300px 0 300px;
     
 }
-body > div.player {
-    display: inline;
-    
-}
 
-body > #card1 {
-    width: 150px;
-    height: 225px;
-
-}
-
-body > div#card2 {
-    width: 150px;
-    height: 225px;
-
-}
-
-body > #card3 {
-    width: 150px;
-    height: 225px;
-
-}
-
-body > #card4 {
-    width: 150px;
-    height: 225px;
-
-} */
