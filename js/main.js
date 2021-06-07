@@ -67,8 +67,15 @@ function render() {
     playerHand.forEach(function(card) {
         cardsHtml += `<div class="card ${card.face}"></div>`;
     });
+    
     playerCardEl.innerHTML = cardsHtml;
-console.log(cardsHtml);
+    let dealerCardsHtml = "";
+    dealerHand.forEach(function(card) {
+      dealerCardsHtml += `<div class="card ${card.face}"></div>`;
+    });
+    dealerCardEl.innerHTML = dealerCardsHtml;
+  
+
     
 };
 
