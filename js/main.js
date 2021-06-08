@@ -64,13 +64,16 @@ function dealHand(hand) {
   
 
 function render() {
-    
+   playerSum = 0; 
   let playerCardsHtml = '';
   playerHand.forEach(function(card) {
     playerCardsHtml += `<div class="card ${card.face}"></div>`;
-    playerSumEl.innerHTML = playerHand[0].value + playerHand[1].value;
+    playerSum += card.value;
+    console.log(card.value)
+    playerSumEl.innerHTML = playerSum;
     });
   playerCardEl.innerHTML = playerCardsHtml;
+  console.log(playerHand)
     
   let dealerCardsHtml = "";
   dealerHand.forEach(function(card) {
@@ -79,26 +82,19 @@ function render() {
     });
     
   dealerCardEl.innerHTML = dealerCardsHtml;
-    
-  
-
-    
-   
-  
-
-    
 };
 
 function hit() {
-  console.log("You've selected hit")
+  
   playerHand.push(shuffledDeck.pop());
-  console.log(playerHand)
-  let playerCardsHtml = '';
-  playerHand.forEach(function(card) {
-    playerCardsHtml += `<div class="card ${card.face}"></div>`;
-    playerSumEl.innerHTML = playerHand[0].value + playerHand[1].value + playerHand[2].value;
-    });
-  playerCardEl.innerHTML = playerCardsHtml;
+  playerSumEl.innerHtml = playerSum;
+  render();
+//   let playerCardsHtml = '';
+//   playerHand.forEach(function(card) {
+//     playerCardsHtml += `<div class="card ${card.face}"></div>`;
+//     playerSumEl.innerHTML = playerHand[0].value + playerHand[1].value + playerHand[2].value;
+//     });
+//   playerCardEl.innerHTML = playerCardsHtml;
 }
 
 
@@ -126,4 +122,5 @@ function getNewShuffledDeck() {
         })
       }) 
       return deck;
-  } 
+
+    }
