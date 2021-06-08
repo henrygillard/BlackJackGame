@@ -20,6 +20,7 @@ const headerEl = document.querySelector("h1");
 const playerCardEl = document.getElementById("pcards");
 const dealerCardEl = document.getElementById("dcards");
 const playerSumEl = document.getElementById("player-sum");
+const dealerSumEl = document.getElementById("dealer-sum");
 const hitEl = document.querySelector("#hit");
 const standEl = document.querySelector("#stand");
 /*----- event listeners -----*/
@@ -63,17 +64,26 @@ function dealHand(hand) {
   
 
 function render() {
-    let cardsHtml = '';
-    playerHand.forEach(function(card) {
-        cardsHtml += `<div class="card ${card.face}"></div>`;
+    
+  let playerCardsHtml = '';
+  playerHand.forEach(function(card) {
+    playerCardsHtml += `<div class="card ${card.face}"></div>`;
+    playerSumEl.innerHTML = playerHand[0].value + playerHand[1].value;
+    });
+  playerCardEl.innerHTML = playerCardsHtml;
+    
+  let dealerCardsHtml = "";
+  dealerHand.forEach(function(card) {
+    dealerCardsHtml += `<div class="card ${card.face}"></div>`;
+    dealerSumEl.innerHTML = dealerHand[0].value + dealerHand[1].value;
     });
     
-    playerCardEl.innerHTML = cardsHtml;
-    let dealerCardsHtml = "";
-    dealerHand.forEach(function(card) {
-      dealerCardsHtml += `<div class="card ${card.face}"></div>`;
-    });
-    dealerCardEl.innerHTML = dealerCardsHtml;
+  dealerCardEl.innerHTML = dealerCardsHtml;
+    
+  
+
+    
+   
   
 
     
