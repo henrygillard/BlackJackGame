@@ -109,7 +109,7 @@ function getNewShuffledDeck() {
         ranks.forEach(function(rank) {
           deck.push({ // Push those into masterDeck object array //
             face: `${suit}${rank}`,
-            value: Number(rank) 
+            value: Number(rank) || (rank === "A" ? 11 : 10)
           })
         })
       }) 
