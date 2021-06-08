@@ -71,8 +71,12 @@ function render() {
     playerCardsHtml += `<div class="card ${card.face}"></div>`;
     playerSum += card.value;
     playerSumEl.innerHTML = playerSum;
-    });
+    
+  });
   playerCardEl.innerHTML = playerCardsHtml;
+  
+ 
+  
   
     dealerSum = 0;
   let dealerCardsHtml = "";
@@ -80,23 +84,118 @@ function render() {
     dealerCardsHtml += `<div class="card ${card.face}"></div>`;
     dealerSum += card.value;
     dealerSumEl.innerHTML = dealerSum;
-    });
+    
+  });
     
   dealerCardEl.innerHTML = dealerCardsHtml;
+  checkBJ();
+  
 };
 
 function hit() {
-  standEl.disabled = true;
+  
   playerHand.push(shuffledDeck.pop());
   render();
+  checkWinner(); 
+  
+  
 
-}
+  };
+
+
 
 function stand() {
   hitEl.disabled = true;
+  standEl.disabled = true;
   dealerHand.push(shuffledDeck.pop());
   render();
+  checkWinner();
+  
 }
+
+function checkBJ() {
+  if (playerSum === 21) {
+    headerEl.innerHTML = "BlackJack!"
+  }
+}
+function checkWinner() {
+  if(dealerSum > 21) {
+    headerEl.innerHTML = "Player Wins!";
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
+    
+  }else if(dealerSum === 21 && playerSum === 21) {
+    headerEl.innerHTML = "Push"
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
+    
+} else if(playerSum === 21) {
+    headerEl.innerHTML = "Player Wins!";
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
+    
+} else if (dealerSum >= 17 && playerSum === dealerSum + 1) {
+    headerEl.innerHTML = "Player Wins!";
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
+    
+} else if (dealerSum >= 17 && playerSum < dealerSum) {
+    headerEl.innerHTML = "Dealer Wins! 1";
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
+} else if (dealerSum < 17) {
+   stand();
+}else if(dealerSum === 21 || playerSum != 21) {
+  headerEl.innerHTML = "Dealer Wins! 2"
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+  
+}else if(dealerSum === 17 && playerSum === 17) {
+  headerEl.innerHTML = "Push!"
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}else if(dealerSum === 18 && playerSum === 18) {
+  headerEl.innerHTML = "Push!"
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}else if(dealerSum === 19 && playerSum === 19) {
+  headerEl.innerHTML = "Push!"
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}else if(dealerSum === 20 && playerSum === 20) {
+  headerEl.innerHTML = "Push!"
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}else if(dealerSum === 21 && playerSum === 21) {
+  headerEl.innerHTML = "Push!"
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}
+};
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+
 
 
 function getNewShuffledDeck() {
@@ -109,8 +208,12 @@ function getNewShuffledDeck() {
       // Note the [0] after splice - this is because splice always returns an array and we just want the card object in that array
       newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
     }
+    if (newShuffledDeck.length < 4) {
+      getNewShuffledDeck(); 
+    }
     return newShuffledDeck;
-  }
+    
+  }  
 
   function buildMasterDeck() {
       const deck = [];
@@ -125,3 +228,4 @@ function getNewShuffledDeck() {
       return deck;
 
     }
+
