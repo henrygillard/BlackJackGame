@@ -25,7 +25,7 @@ const hitEl = document.querySelector("#hit");
 const standEl = document.querySelector("#stand");
 /*----- event listeners -----*/
 document.querySelector("#deal").addEventListener("click", setDeal)
-
+document.querySelector("#hit").addEventListener("click", hit)
 /*----- functions -----*/
 init()
 function init() {
@@ -88,6 +88,18 @@ function render() {
 
     
 };
+
+function hit() {
+  console.log("You've selected hit")
+  playerHand.push(shuffledDeck.pop());
+  console.log(playerHand)
+  let playerCardsHtml = '';
+  playerHand.forEach(function(card) {
+    playerCardsHtml += `<div class="card ${card.face}"></div>`;
+    playerSumEl.innerHTML = playerHand[0].value + playerHand[1].value + playerHand[2].value;
+    });
+  playerCardEl.innerHTML = playerCardsHtml;
+}
 
 
 function getNewShuffledDeck() {
