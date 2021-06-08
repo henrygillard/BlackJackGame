@@ -26,6 +26,7 @@ const standEl = document.querySelector("#stand");
 /*----- event listeners -----*/
 document.querySelector("#deal").addEventListener("click", setDeal)
 document.querySelector("#hit").addEventListener("click", hit)
+document.querySelector("#stand").addEventListener("click", stand)
 /*----- functions -----*/
 init()
 function init() {
@@ -69,32 +70,32 @@ function render() {
   playerHand.forEach(function(card) {
     playerCardsHtml += `<div class="card ${card.face}"></div>`;
     playerSum += card.value;
-    console.log(card.value)
     playerSumEl.innerHTML = playerSum;
     });
   playerCardEl.innerHTML = playerCardsHtml;
-  console.log(playerHand)
-    
+  
+    dealerSum = 0;
   let dealerCardsHtml = "";
   dealerHand.forEach(function(card) {
     dealerCardsHtml += `<div class="card ${card.face}"></div>`;
-    dealerSumEl.innerHTML = dealerHand[0].value + dealerHand[1].value;
+    dealerSum += card.value;
+    dealerSumEl.innerHTML = dealerSum;
     });
     
   dealerCardEl.innerHTML = dealerCardsHtml;
 };
 
 function hit() {
-  
+  standEl.disabled = true;
   playerHand.push(shuffledDeck.pop());
-  playerSumEl.innerHtml = playerSum;
   render();
-//   let playerCardsHtml = '';
-//   playerHand.forEach(function(card) {
-//     playerCardsHtml += `<div class="card ${card.face}"></div>`;
-//     playerSumEl.innerHTML = playerHand[0].value + playerHand[1].value + playerHand[2].value;
-//     });
-//   playerCardEl.innerHTML = playerCardsHtml;
+
+}
+
+function stand() {
+  hitEl.disabled = true;
+  dealerHand.push(shuffledDeck.pop());
+  render();
 }
 
 
