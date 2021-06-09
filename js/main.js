@@ -24,13 +24,21 @@ const playerSumEl = document.getElementById("player-sum");
 const dealerSumEl = document.getElementById("dealer-sum");
 const hitEl = document.querySelector("#hit");
 const standEl = document.querySelector("#stand");
-const bet50El = document.querySelector("#small");
+const bet50El = document.querySelector("#bet50");
+const bet100El = document.querySelector("#bet100");
 const betPwrEl = document.getElementById("betPwr");
+const playerSpaceEl = document.querySelector("#player");
+const betSpaceEl = document.querySelector("#bet-space");
+const betAgainEl = document.querySelector("#play-again");
 /*----- event listeners -----*/
+
 document.querySelector("#deal").addEventListener("click", setDeal)
 document.querySelector("#hit").addEventListener("click", hit)
 document.querySelector("#stand").addEventListener("click", stand)
 document.getElementById("bet50").addEventListener("click", handleBet50)
+document.getElementById("bet100").addEventListener("click", handleBet100);
+document.getElementById("play-again").addEventListener("click", betAgain);
+
 /*----- functions -----*/
 init()
 function init() {
@@ -41,27 +49,71 @@ function init() {
   dealerSum = 0;
   smallBet = 0;
   bigBet = 0;
+  betTotal = 0;
   betPower = 500;
-  gameStatus = null;
-  winner = null;
-  //set hit and stand buttons to invisible//
  hitEl.disabled = true;
   standEl.disabled = true;
+  bet50El.disabled = false;
+  bet100El.disabled = false;
+  betAgainEl.disabled = true;
+  betSpaceEl.style.visibility = "hidden";
+  dealerSumEl.style.visibility = "hidden";
+  playerSumEl.style.visibility = "hidden";
    render();
 } 
-
+function betAgain() {
+  console.log(betTotal)
+  console.log(betPower)
+  shuffledDeck = getNewShuffledDeck(); 
+  playerHand = [];
+  dealerHand = [];
+  playerSum = 0;
+  dealerSum = 0;
+  bigBet = 0;
+  betTotal = 0;
+  dealEl.disabled = false;
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  bet50El.disabled = false;
+  bet100El.disabled = false;
+  betAgainEl.disabled = true;
+  betSpaceEl.style.visibility = "hidden";
+  dealerSumEl.style.visibility = "hidden";
+  playerSumEl.style.visibility = "hidden";
+  render();
+}
 function handleBet50() {
-  smallBet = 50;
-  betPower -= smallBet; 
+  
+  smallBet += 50;
+  betPower -= 50; 
+  betTotal = smallBet + bigBet;
   betPwrEl.innerHTML = `Betting Power: $${betPower}`
-  bet50El.style.visibility = "visible"
+  betSpaceEl.style.visibility = "visible";
+  betSpaceEl.innerHTML = `${betTotal}`;
 
 }
+
+function handleBet100() {
+  bigBet += 100;
+  betPower -= 100;
+  betTotal = smallBet + bigBet;
+  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  betSpaceEl.style.visibility = "visible";
+  betSpaceEl.innerHTML = `${betTotal}`;
+}
 function setDeal() {
+  console.log(betTotal)
+  console.log(betPower)
+  
+  betPwrEl.innerHTML = `Betting Power: $${betPower}`
   standEl.disabled = false;
   hitEl.disabled = false;
   dealEl.disabled = true;
+  bet50El.disabled = true;
+  bet100El.disabled = true;
   headerEl.innerHTML = "Do you want to hit or stand?"
+  dealerSumEl.style.visibility = "visible";
+  playerSumEl.style.visibility = "visible";
   dealHand();
     render();
     
@@ -109,6 +161,8 @@ function render() {
 };
 
 function hit() {
+  console.log(betTotal)
+  console.log(betPower)
   
   playerHand.push(shuffledDeck.pop());
   render();
@@ -128,12 +182,16 @@ function hit() {
   };
 
   function push() {
+    console.log(betTotal)
+  console.log(betPower)
     
       if(playerSum >= 17 && dealerSum >= 17) {
         headerEl.innerHTML = "Push";
         hitEl.disabled = true;
         standEl.disabled = true;
-        dealEl.disabled = false;
+        dealEl.disabled = true;
+        betAgainEl.disabled = false;
+        betPower += betTotal;
       }
     }
     
@@ -141,14 +199,25 @@ function dealerWins() {
   headerEl.innerHTML = "Dealer Wins!";
   hitEl.disabled = true;
   standEl.disabled = true;
-  dealEl.disabled = false;
+  dealEl.disabled = true;
+  betAgainEl.disabled = false;
+  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  console.log(betTotal)
+  console.log(betPower)
+  
 }
 
 function playerWins() {
   headerEl.innerHTML = "Player Wins!";
   hitEl.disabled = true;
   standEl.disabled = true;
-  dealEl.disabled = false;
+  dealEl.disabled = true;
+  betAgainEl.disabled = false;
+  betPower += betTotal *2;
+  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  console.log(betTotal)
+  console.log(betPower)
+  
 }
 
 function stand() {
@@ -166,6 +235,8 @@ function stand() {
     dealerWins();
   } else if (dealerSum === playerSum) {
     push();
+    console.log(betTotal)
+  console.log(betPower)
   }
  
   
@@ -176,12 +247,16 @@ function checkBJ() {
     headerEl.innerHTML = "BlackJack!"
     hitEl.disabled = true;
     standEl.disabled = true;
-    dealEl.disabled = false;
+    dealEl.disabled = true;
+    betPower += betTotal;
   }else if (dealerSum === 21) {
     headerEl.innerHTML = "Dealer BlackJack!"
     hitEl.disabled = true;
     standEl.disabled = true;
-    dealEl.disabled = false;
+    dealEl.disabled = true;
+    betPower -= betTotal;
+    console.log(betTotal)
+  console.log(betPower)
   }
 }
 

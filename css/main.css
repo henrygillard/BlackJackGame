@@ -114,6 +114,7 @@ p {
     height: 50px;
     background-color: white;
     border: solid;
+    visibility: hidden;
 }
 #player-sum {
     display: flex;
@@ -124,6 +125,7 @@ p {
     height: 50px;
     background-color: white;
     border: solid;
+    visibility: hidden;
 }
 
 #bttns {
@@ -132,6 +134,7 @@ p {
     align-items: center;
     
 }
+
 
 #bet-bttns {
     display: flex;
@@ -156,6 +159,18 @@ p {
    margin: 10px 0px 0px 10px;
    border:  solid black;
 }
+#bet-space {
+    width: 102px;
+    height: 100px;
+    border-radius: 1000px;
+   background-image: url("https://i.imgur.com/u6r8EjV.jpg");
+   margin: 0px 10px 0px 0px;
+   border: solid  black;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   visibility: hidden;
+}
 
 
 
@@ -163,6 +178,7 @@ footer {
     
     background-image: url("https://i.imgur.com/4KT5G31.jpg");
     height: 150px;
+    background-size: cover;
 }
 
 
