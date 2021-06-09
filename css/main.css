@@ -10,41 +10,75 @@
 body {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 1280px;
+    height: 100vmin;
     border: solid;
     
+    
 }
-h1 {
+
+header{
+    margin: 0;
+    height: 377px;
+    background-image: url("https://i.imgur.com/jhlGOwb.jpg");
+    object-fit: fill;
+}
+h1, p {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
+    margin-top: 75px;
+    background-color: rgba(255,255,255, 0.3);
+    border-bottom: solid black;
+    border-top: solid black;
 }
 
-#dealer {
-    display: flex;
-    flex-direction: row; 
-    
-}
+
 #player {
     display: flex;
-    flex-direction: row; 
-}
-div.dealer-card {
-    display: flex;
-    height: 325px;
-    width: 200px;
+    flex-direction: row;
+    height: 275px;
+    
     align-items: center;
    justify-content: center;
-   margin-right: 10px;
+   
    border: solid;
-   margin-left: 10px;
+   
+   background-color:#004D47;
+}
+#dealer {
+    display: flex;
+    flex-direction: row;
+    height: 275px;
+    
+    align-items: center;
+   justify-content: center;
+   
+   border: solid;
+   
+   background-color:#004D47;
   
    
     
 
 }
+
+#pcards {
+    
+      height: 11em;
+      display: flex;
+      flex-direction: row;
+}
+
+#dcards {
+   
+      height: 11em;
+      display: flex;
+      flex-direction: row;
+}
 div.player-card {
-    display: flex;
+    /* display: flex;
     height: 325px;
     width: 200px;
     align-items: center;
@@ -52,7 +86,7 @@ div.player-card {
    margin-right: 10px;
    border: solid;
    margin-left: 10px;
-   margin-top: 10px;
+   margin-top: 10px; */
   
    
    
@@ -72,9 +106,9 @@ div.player-card {
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    width: 200px;
-    height: 200px;
-    margin-top: 50px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
     border: solid;
 }
 #player-sum {
@@ -82,20 +116,51 @@ div.player-card {
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    width: 200px;
-    height: 200px;
-    margin-top: 50px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
     border: solid;
 }
 
 #bttns {
     display: flex;
-    flex-direction: column;
-    
-    width: 200px;
-    margin: 10px 300px 0 300px;
+    flex-direction: row;
+    align-items: center;
     
 }
+
+#bet-bttns {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-left: 50px;
+}
+#bet50 {
+    width: 102px;
+    height: 100px;
+    border-radius: 1000px;
+   background-image: url("https://i.imgur.com/u6r8EjV.jpg");
+   margin: 0px 10px 0px 0px;
+   border: solid  black;
+    
+}
+#bet100 {
+    width: 102px;
+    height: 100px;
+    border-radius: 1000px;
+   background-image: url("https://i.imgur.com/pcAPhvA.jpg");
+   margin: 10px 0px 0px 10px;
+   border:  solid black;
+}
+
+
+
+footer {
+    
+    background-image: url("https://i.imgur.com/4KT5G31.jpg");
+    height: 150px;
+}
+
 
 html, * {
     box-sizing: border-box;
@@ -110,6 +175,11 @@ html, * {
     flex-wrap: wrap;
     justify-content: flex-start;
     border: 4px dotted grey;
+  }
+  
+  div.card {
+      width: 8.0em;
+      height: 11em;
   }
   
   button {
@@ -127,3 +197,13 @@ html, * {
     background-color: grey;
     color: white;
   }
+
+  #bet50:hover {
+      border: solid yellow;
+      color: black;
+  }
+
+  #bet100:hover {
+    border: solid yellow;
+    color: white;
+}

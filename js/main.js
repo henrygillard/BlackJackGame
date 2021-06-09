@@ -12,7 +12,8 @@ let playerSum;
 let gameStatus
 let winner;
 let betPower;
-let bet;
+let smallBet;
+let bigBet;
 
 /*----- cached element references -----*/
 const dealEl = document.querySelector("#deal");
@@ -23,10 +24,13 @@ const playerSumEl = document.getElementById("player-sum");
 const dealerSumEl = document.getElementById("dealer-sum");
 const hitEl = document.querySelector("#hit");
 const standEl = document.querySelector("#stand");
+const bet50El = document.querySelector("#small");
+const betPwrEl = document.getElementById("betPwr");
 /*----- event listeners -----*/
 document.querySelector("#deal").addEventListener("click", setDeal)
 document.querySelector("#hit").addEventListener("click", hit)
 document.querySelector("#stand").addEventListener("click", stand)
+document.getElementById("bet50").addEventListener("click", handleBet50)
 /*----- functions -----*/
 init()
 function init() {
@@ -35,8 +39,9 @@ function init() {
   dealerHand = [];
   playerSum = 0;
   dealerSum = 0;
-  bet = 0;
-  betPower = 0;
+  smallBet = 0;
+  bigBet = 0;
+  betPower = 500;
   gameStatus = null;
   winner = null;
   //set hit and stand buttons to invisible//
@@ -45,7 +50,13 @@ function init() {
    render();
 } 
 
+function handleBet50() {
+  smallBet = 50;
+  betPower -= smallBet; 
+  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  bet50El.style.visibility = "visible"
 
+}
 function setDeal() {
   standEl.disabled = false;
   hitEl.disabled = false;

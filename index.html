@@ -11,7 +11,10 @@
     <title>BlackJack</title>
 </head>
 <body>
-    <h1 id="msg">Welcome to BlackJack!</h1>
+    <header>
+        <h1 id="msg">Welcome to BlackJack!<br>Please Place Your Bet </h1>
+        <p id="betPwr">Betting Power: $500</p>
+    </header>
     <div id="dealer">
         <div class="dealer-card" id="dcards">Dealer Card</div>
         
@@ -22,11 +25,18 @@
         
         <div id="player-sum" class="sum">Sum</div>
     </div>
-    <div id="bttns">
-        <button id="hit">HIT</button>
-        <button id="stand">STAND</button>
-        <button id="deal">DEAL</button>
-    </div>
+    <footer>
+        <div id="bttns">
+            <button id="hit">HIT</button>
+            <button id="stand">STAND</button>
+            <button id="deal">DEAL</button>
+            <div id="bet-bttns">
+                <button id="bet50">50$</button>
+                <button id="bet100">100$</button>
+            </div>
+        </div>
+       
+    </footer>
 </body>
 </html>
     
