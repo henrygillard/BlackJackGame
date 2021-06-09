@@ -53,6 +53,7 @@ function setDeal() {
   headerEl.innerHTML = "Do you want to hit or stand?"
   dealHand();
     render();
+    
  }
 
 function dealHand(hand) {
@@ -96,93 +97,167 @@ function hit() {
   
   playerHand.push(shuffledDeck.pop());
   render();
-  checkWinner(); 
+  if(dealerSum === 21 || playerSum > 21) {
+    dealerWins();
+    return;
+  } else if (playerSum === 21) {
+    playerWins();
+    return;
+  } else if(playerSum > 21) {
+    dealerWins();
+    return;
+  } else if (dealerSum === playerSum) {
+    push();
+  }
+  
   
   
 
   };
 
+  function push() {
+    
+      if(playerSum >= 17 && dealerSum >= 17) {
+        headerEl.innerHTML = "Push";
+        hitEl.disabled = true;
+        standEl.disabled = true;
+        dealEl.disabled = false;
+      }
+    }
+    }
+function dealerWins() {
+  headerEl.innerHTML = "Dealer Wins!";
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}
 
+function playerWins() {
+  headerEl.innerHTML = "Player Wins!";
+  hitEl.disabled = true;
+  standEl.disabled = true;
+  dealEl.disabled = false;
+}
 
 function stand() {
   hitEl.disabled = true;
   standEl.disabled = true;
   dealerHand.push(shuffledDeck.pop());
   render();
-  checkWinner();
+  while (dealerSum < 17 || dealerSum < playerSum) {
+    dealerHand.push(shuffledDeck.pop());
+    render();
+  }
+  if (dealerHand > 21) {
+    playerWins();
+  } else if (dealerHand > playerHand && dealerHand < 22) {
+    dealerWins();
+  } else if (dealerHand === playerHand) {
+    push();
+  }
+ 
   
 }
 
 function checkBJ() {
   if (playerSum === 21) {
     headerEl.innerHTML = "BlackJack!"
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
+  }else if (dealerSum === 21) {
+    headerEl.innerHTML = "Dealer BlackJack!"
+    hitEl.disabled = true;
+    standEl.disabled = true;
+    dealEl.disabled = false;
   }
 }
-function checkWinner() {
-  if(dealerSum > 21) {
-    headerEl.innerHTML = "Player Wins!";
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = false;
+// function checkWinner() {
+//   if(dealerSum > 21) {
+//     headerEl.innerHTML = "Player Wins!";
+//     hitEl.disabled = true;
+//     standEl.disabled = true;
+//     dealEl.disabled = false;
+//   } else if(playerSum < 17 && dealerSum < 17) {
+//       stand()
+//   }else if(dealerSum === 21 && playerSum === 21) {
+//     headerEl.innerHTML = "Push"
+//     hitEl.disabled = true;
+//     standEl.disabled = true;
+//     dealEl.disabled = false;
     
-  }else if(dealerSum === 21 && playerSum === 21) {
-    headerEl.innerHTML = "Push"
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = false;
+// } else if(playerSum === 21) {
+//     headerEl.innerHTML = "Player Wins!";
+//     hitEl.disabled = true;
+//     standEl.disabled = true;
+//     dealEl.disabled = false;
     
-} else if(playerSum === 21) {
-    headerEl.innerHTML = "Player Wins!";
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = false;
+// } else if (dealerSum >= 17 && playerSum === dealerSum + 1) {
+//     headerEl.innerHTML = "Player Wins!";
+//     hitEl.disabled = true;
+//     standEl.disabled = true;
+//     dealEl.disabled = false;
     
-} else if (dealerSum >= 17 && playerSum === dealerSum + 1) {
-    headerEl.innerHTML = "Player Wins!";
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = false;
-    
-} else if (dealerSum >= 17 && playerSum < dealerSum) {
-    headerEl.innerHTML = "Dealer Wins! 1";
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = false;
-} else if (dealerSum < 17) {
-   stand();
-}else if(dealerSum === 21 || playerSum != 21) {
-  headerEl.innerHTML = "Dealer Wins! 2"
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = false;
+// } else if (dealerSum < 17) {
+//    stand();
+// }else if (playerSum > 17 && dealerSum <= 17) {
+//   headerEl.innerHTML = "Player Wins!";
+//   hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// } else if (dealerSum > 17 && playerSum <= 17) {
+//   headerEl.innerHTML = "Dealer Wins!";
+//   hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+
+// } else if(dealerSum === 17 && playerSum === 17) {
+//     headerEl.innerHTML = "Push!"
+//     hitEl.disabled = true;
+//     standEl.disabled = true;
+//     dealEl.disabled = false;
+// }else if(dealerSum === 18 && playerSum === 18) {
+//   headerEl.innerHTML = "Push!"
+//   hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// }else if(dealerSum === 19 && playerSum === 19) {
+//   headerEl.innerHTML = "Push!"
+//   hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// }else if(dealerSum === 20 && playerSum === 20) {
+//   headerEl.innerHTML = "Push!"
+//   hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// }else if(dealerSum === 21 && playerSum === 21) {
+//   headerEl.innerHTML = "Push!"
+//   hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// }else if (dealerSum >= 17 && playerSum <= 20) {
+//   hitEl.disabled = false;
+//   standEl.disabled = false;
+//   dealEl.disabled = true;
+// }else if(playerSum < 17 && dealerSum >= 17) {
+// headerEl.innerHTML = "Dealer Wins!";
+// hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// }else if (dealerSum < 17 && playerSum < 17) {
+// hitEl.disabled = false;
+//   standEl.disabled = false;
+//   dealEl.disabled = true;
+// } else if(dealerSum >= 17 && playerSum < 17) {
+//   headerEl.innerHTML = "Dealer Wins!";
+// hitEl.disabled = true;
+//   standEl.disabled = true;
+//   dealEl.disabled = false;
+// }
+// }
   
-}else if(dealerSum === 17 && playerSum === 17) {
-  headerEl.innerHTML = "Push!"
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = false;
-}else if(dealerSum === 18 && playerSum === 18) {
-  headerEl.innerHTML = "Push!"
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = false;
-}else if(dealerSum === 19 && playerSum === 19) {
-  headerEl.innerHTML = "Push!"
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = false;
-}else if(dealerSum === 20 && playerSum === 20) {
-  headerEl.innerHTML = "Push!"
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = false;
-}else if(dealerSum === 21 && playerSum === 21) {
-  headerEl.innerHTML = "Push!"
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = false;
-}
-};
+
 
 
   
@@ -226,6 +301,4 @@ function getNewShuffledDeck() {
         })
       }) 
       return deck;
-
-    }
-
+    }  
