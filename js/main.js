@@ -30,6 +30,7 @@ const betPwrEl = document.getElementById("betPwr");
 const playerSpaceEl = document.querySelector("#player");
 const betSpaceEl = document.querySelector("#bet-space");
 const betAgainEl = document.querySelector("#play-again");
+const dealerCardAreaEl = document.querySelector(".dealer-card");
 /*----- event listeners -----*/
 
 document.querySelector("#deal").addEventListener("click", setDeal)
@@ -127,8 +128,15 @@ function dealHand(hand) {
 
 };
   
-
-  
+// make function that flips dealer card
+function flipDealerCard() {
+  let dealerCardsHtml = "";
+  dealerHand.forEach(function(card) {
+    dealerCardsHtml += `<div class="card ${card.face}"></div>`;
+    })
+  dealerCardEl.innerHTML = dealerCardsHtml;
+  console.log(dealerCardsHtml)
+}
 
 function render() {
   if(dealerHand.length < 5) {
@@ -150,12 +158,16 @@ function render() {
     dealerSum = 0;
     let dealerCardsHtml = "";
     dealerHand.forEach(function(card, idx) {
-    dealerCardsHtml += `<div class="card ${idx ? "back": card.face}"></div>`;
+    dealerCardsHtml += `<div class="card ${idx ? card.face:"back" }"></div>`;
     dealerSum += card.value;
     dealerSumEl.innerHTML = dealerSum;
     
     
-  });
+})
+
+  
+
+  
     
   dealerCardEl.innerHTML = dealerCardsHtml;
   checkBJ();
@@ -163,17 +175,25 @@ function render() {
 };
 
 function hit() {
-  dealerSumEl.style.visibility = "visible"
+  
+  flipDealerCard()
   
   playerHand.push(shuffledDeck.pop());
   render();
+  
   if(dealerSum === 21 || playerSum > 21) {
+    
+    flipDealerCard()
     dealerWins();
     return;
   } else if (playerSum === 21) {
+    
+    flipDealerCard()
     playerWins();
     return;
   } else if(playerSum > 21) {
+    
+    flipDealerCard()
     dealerWins();
     return;
   } else if (dealerSum === playerSum) {
@@ -197,18 +217,17 @@ function hit() {
     }
     
 function dealerWins() {
+  dealerSumEl.style.visibility = "visible"
   headerEl.innerHTML = "Dealer Wins!";
   hitEl.disabled = true;
   standEl.disabled = true;
   dealEl.disabled = true;
   betAgainEl.disabled = false;
   betPwrEl.innerHTML = `Betting Power: $${betPower}`
-  console.log(betTotal)
-  console.log(betPower)
-  
 }
 
 function playerWins() {
+  dealerSumEl.style.visibility = "visible"
   headerEl.innerHTML = "Player Wins!";
   hitEl.disabled = true;
   standEl.disabled = true;
@@ -216,19 +235,19 @@ function playerWins() {
   betAgainEl.disabled = false;
   betPower += betTotal *2;
   betPwrEl.innerHTML = `Betting Power: $${betPower}`
-  console.log(betTotal)
-  console.log(betPower)
-  
 }
 
 function stand() {
+  dealerSumEl.style.visibility = "visible"
   hitEl.disabled = true;
   standEl.disabled = true;
   dealerHand.push(shuffledDeck.pop());
   render();
+  flipDealerCard()
   if (dealerSum < 17 || dealerSum < playerSum) {
     dealerHand.push(shuffledDeck.pop());
     render();
+    flipDealerCard()
   }
   if (dealerSum > 21) {
     playerWins();
@@ -242,22 +261,26 @@ function stand() {
  
   
 }
-
+// if BJ, render card face
 function checkBJ() {
   if (playerSum === 21) {
+    flipDealerCard()
     headerEl.innerHTML = "BlackJack!"
     hitEl.disabled = true;
     standEl.disabled = true;
     dealEl.disabled = true;
-    betPower += betTotal*2.5;
+    betAgainEl.disabled = false;
+    betPower += (betTotal*2.5);
+    betPwrEl.innerHTML = `Betting Power: $${betPower}`
   }else if (dealerSum === 21) {
+    flipDealerCard()
     headerEl.innerHTML = "Dealer BlackJack!"
     hitEl.disabled = true;
     standEl.disabled = true;
     dealEl.disabled = true;
+    betAgainEl.disabled = false;
     betPower -= betTotal;
-    console.log(betTotal)
-  console.log(betPower)
+    betPwrEl.innerHTML = `Betting Power: $${betPower}`
   }
 }
 
