@@ -38,7 +38,8 @@ document.querySelector("#stand").addEventListener("click", stand)
 document.getElementById("bet50").addEventListener("click", handleBet50)
 document.getElementById("bet100").addEventListener("click", handleBet100);
 document.getElementById("play-again").addEventListener("click", betAgain);
-
+{/* <div class="card back-red"></div>
+dealer-card.firstChild.classList.remove("back-blue") */}
 /*----- functions -----*/
 init()
 function init() {
@@ -69,6 +70,7 @@ function betAgain() {
   dealerHand = [];
   playerSum = 0;
   dealerSum = 0;
+  smallBet = 0;
   bigBet = 0;
   betTotal = 0;
   dealEl.disabled = false;
@@ -112,7 +114,7 @@ function setDeal() {
   bet50El.disabled = true;
   bet100El.disabled = true;
   headerEl.innerHTML = "Do you want to hit or stand?"
-  dealerSumEl.style.visibility = "visible";
+  dealerSumEl.style.visibility = "hidden";
   playerSumEl.style.visibility = "visible";
   dealHand();
     render();
@@ -146,9 +148,9 @@ function render() {
   
   
     dealerSum = 0;
-  let dealerCardsHtml = "";
-  dealerHand.forEach(function(card) {
-    dealerCardsHtml += `<div class="card ${card.face}"></div>`;
+    let dealerCardsHtml = "";
+    dealerHand.forEach(function(card, idx) {
+    dealerCardsHtml += `<div class="card ${idx ? "back": card.face}"></div>`;
     dealerSum += card.value;
     dealerSumEl.innerHTML = dealerSum;
     
@@ -161,8 +163,7 @@ function render() {
 };
 
 function hit() {
-  console.log(betTotal)
-  console.log(betPower)
+  dealerSumEl.style.visibility = "visible"
   
   playerHand.push(shuffledDeck.pop());
   render();
@@ -248,7 +249,7 @@ function checkBJ() {
     hitEl.disabled = true;
     standEl.disabled = true;
     dealEl.disabled = true;
-    betPower += betTotal;
+    betPower += betTotal*2.5;
   }else if (dealerSum === 21) {
     headerEl.innerHTML = "Dealer BlackJack!"
     hitEl.disabled = true;
@@ -284,7 +285,6 @@ function getNewShuffledDeck() {
           deck.push({ // Push those into masterDeck object array //
             face: `${suit}${rank}`,
             value: Number(rank) || (rank === "A" ? 11 : 10),
-            hidden: false
           })
         })
       }) 

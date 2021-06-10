@@ -171,7 +171,9 @@ p {
    align-items: center;
    visibility: hidden;
 }
-
+card.back {
+   background-image: url("../images/backs/blue.svg")
+}
 
 
 footer {
