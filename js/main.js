@@ -16,6 +16,7 @@ let smallBet;
 let bigBet;
 
 /*----- cached element references -----*/
+const player = new Audio();
 const dealEl = document.querySelector("#deal");
 const headerEl = document.querySelector("h1");
 const playerCardEl = document.getElementById("pcards");
@@ -107,6 +108,8 @@ function handleBet100() {
 function setDeal() {
   console.log(betTotal)
   console.log(betPower)
+  player.src = "https://freesound.org/data/previews/575/575387_12990837-lq.mp3"
+  player.play();
   
   betPwrEl.innerHTML = `Betting Power: $${betPower}`
   standEl.disabled = false;
@@ -130,15 +133,20 @@ function dealHand(hand) {
   
 // make function that flips dealer card
 function flipDealerCard() {
+  console.log("flipped")
+  dealerSumEl.style.visibility = "visible"
   let dealerCardsHtml = "";
   dealerHand.forEach(function(card) {
     dealerCardsHtml += `<div class="card ${card.face}"></div>`;
+    dealerSumEl.innerHTML = dealerSum;
     })
   dealerCardEl.innerHTML = dealerCardsHtml;
-  console.log(dealerCardsHtml)
+  
 }
 
+
 function render() {
+  
   if(dealerHand.length < 5) {
     getNewShuffledDeck();
   }
@@ -175,44 +183,32 @@ function render() {
 };
 
 function hit() {
-  
-  flipDealerCard()
-  
   playerHand.push(shuffledDeck.pop());
   render();
-  
   if(dealerSum === 21 || playerSum > 21) {
+    setTimeout(flipDealerCard, 1000)
+    setTimeout(dealerWins, 1500);
     
-    flipDealerCard()
-    dealerWins();
-    return;
   } else if (playerSum === 21) {
+    setTimeout(flipDealerCard, 2000)
     
-    flipDealerCard()
-    playerWins();
-    return;
-  } else if(playerSum > 21) {
+    setTimeout(playerWins, 1500);
     
-    flipDealerCard()
-    dealerWins();
-    return;
   } else if (dealerSum === playerSum) {
-    push();
-  }return;
+    setTimeout(push, 1500);
+  } 
   
   };
 
-  function push() {
-    console.log(betTotal)
-  console.log(betPower)
-    
-      if(playerSum >= 17 && dealerSum >= 17) {
-        headerEl.innerHTML = "Push";
-        hitEl.disabled = true;
-        standEl.disabled = true;
-        dealEl.disabled = true;
-        betAgainEl.disabled = false;
-        betPower += betTotal;
+  function push() {  
+    if(playerSum >= 17 && dealerSum >= 17) {
+      headerEl.innerHTML = "Push";
+      hitEl.disabled = true;
+      standEl.disabled = true;
+      dealEl.disabled = true;
+      betAgainEl.disabled = false;
+      dealerSumEl.innerHTML = dealerSum;
+      betPower += betTotal;
       }
     }
     
@@ -238,25 +234,31 @@ function playerWins() {
 }
 
 function stand() {
-  dealerSumEl.style.visibility = "visible"
+  setTimeout(flipDealerCard, 2000)
+  
   hitEl.disabled = true;
   standEl.disabled = true;
-  dealerHand.push(shuffledDeck.pop());
+  // dealerHand.push(shuffledDeck.pop());
   render();
-  flipDealerCard()
-  if (dealerSum < 17 || dealerSum < playerSum) {
+  
+  
+  while (dealerSum < 17) {
+    let currentIdx = 1;
     dealerHand.push(shuffledDeck.pop());
     render();
-    flipDealerCard()
-  }
-  if (dealerSum > 21) {
-    playerWins();
+    currentIdx++;
+    // setTimeout(flipDealerCard, 1500)
+  } if (dealerSum > 21) {
+    // setTimeout(flipDealerCard, 1500)
+    setTimeout(playerWins, 1500);
   } else if (dealerSum > playerSum && dealerSum < 22) {
-    dealerWins();
+    // setTimeout(flipDealerCard, 1500)
+    setTimeout(dealerWins, 1500);
   } else if (dealerSum === playerSum) {
-    push();
-    console.log(betTotal)
-  console.log(betPower)
+    // setTimeout(flipDealerCard, 1500)
+    setTimeout(push, 1500);
+  } else if (playerSum > dealerSum && playerSum < 22) {
+  setTimeout(playerWins, 1500);
   }
  
   
