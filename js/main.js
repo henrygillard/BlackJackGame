@@ -43,7 +43,10 @@ const dealerCardAreaEl = document.querySelector(".dealer-card");
 
 /*----- event listeners -----*/ 
 chkBoxEl.addEventListener("change", handleChkBox)
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 dealEl.addEventListener("click", setDeal)
 hitEl.addEventListener("click", hit)
 standEl.addEventListener("click", stand)
@@ -223,7 +226,7 @@ function standLogic() {
 }
 
 function stand() {
-  setTimeout(flipDealerCard, 2000)
+  setTimeout(flipDealerCard, 1000)
   hitEl.disabled = true;
   standEl.disabled = true;
   render();
@@ -241,6 +244,8 @@ function checkBJ() {
     updateBetPwr();
   }else if (dealerSum === 21) {
     flipDealerCard()
+    player.src = sounds.dealerWins;
+    player.play();
     headerEl.innerHTML = "Dealer BlackJack!"
     playAgain();
     betPower -= betTotal;
@@ -266,7 +271,7 @@ function getNewShuffledDeck() {
     const deck = [];
     suits.forEach(function(suit) {
       ranks.forEach(function(rank) {
-        deck.push({ // Push those into masterDeck object array //
+        deck.push({
           face: `${suit}${rank}`,
           value: Number(rank) || (rank === "A" ? 11 : 10),
         })
