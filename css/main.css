@@ -184,6 +184,10 @@ footer {
     background-size: cover;
 }
 
+input {
+    color: white;
+}
+
 
 html, * {
     box-sizing: border-box;
