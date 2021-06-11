@@ -24,7 +24,6 @@ let bigBet;
 /*----- cached element references -----*/
 
 const player = new Audio();
-
 const dealEl = document.querySelector("#deal");
 const headerEl = document.querySelector("h1");
 const playerCardEl = document.getElementById("pcards");
@@ -42,15 +41,7 @@ const betAgainEl = document.querySelector("#play-again");
 const dealerCardAreaEl = document.querySelector(".dealer-card");
 
 /*----- event listeners -----*/ 
-<<<<<<< HEAD
 
-=======
-chkBoxEl.addEventListener("change", handleChkBox)
-<<<<<<< HEAD
-
-=======
->>>>>>> master
->>>>>>> gh-pages
 dealEl.addEventListener("click", setDeal)
 hitEl.addEventListener("click", hit)
 standEl.addEventListener("click", stand)
