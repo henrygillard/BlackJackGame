@@ -24,7 +24,7 @@ let bigBet;
 /*----- cached element references -----*/
 
 const player = new Audio();
-const chkBoxEl = document.querySelector("input");
+
 const dealEl = document.querySelector("#deal");
 const headerEl = document.querySelector("h1");
 const playerCardEl = document.getElementById("pcards");
@@ -42,7 +42,7 @@ const betAgainEl = document.querySelector("#play-again");
 const dealerCardAreaEl = document.querySelector(".dealer-card");
 
 /*----- event listeners -----*/ 
-chkBoxEl.addEventListener("change", handleChkBox)
+
 dealEl.addEventListener("click", setDeal)
 hitEl.addEventListener("click", hit)
 standEl.addEventListener("click", stand)
@@ -276,7 +276,3 @@ function getNewShuffledDeck() {
     return deck;
   };  
 
-function handleChkBox() {
-  player.src = sounds.casinoNoise;
-  chkBoxEl.checked ? player.play() : player.pause();
-}
