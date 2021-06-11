@@ -220,7 +220,7 @@ function standLogic() {
 }
 
 function stand() {
-  setTimeout(flipDealerCard, 1000)
+  setTimeout(flipDealerCard, 1000);
   hitEl.disabled = true;
   standEl.disabled = true;
   render();
