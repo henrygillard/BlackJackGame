@@ -7,7 +7,6 @@ const sounds = {
   blackjack: "https://freesound.org/data/previews/575/575429_12990837-lq.mp3",
   dealerWins: 'https://freesound.org/data/previews/575/575428_12990837-lq.mp3',
   playerWins: 'https://freesound.org/data/previews/575/575427_12990837-lq.mp3',
-  casinoNoise: "https://freesound.org/data/previews/342/342309_3793224-lq.mp3"
 }
 
 /*----- app's state (variables) -----*/
