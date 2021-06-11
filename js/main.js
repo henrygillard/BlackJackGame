@@ -1,21 +1,30 @@
+/*----- app's Constant (variables) -----*/
+
 const suits = ['s', 'c', 'd', 'h'];
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const masterDeck = buildMasterDeck();
-
+const sounds = {
+  blackjack: "https://freesound.org/data/previews/575/575429_12990837-lq.mp3",
+  dealerWins: 'https://freesound.org/data/previews/575/575428_12990837-lq.mp3',
+  playerWins: 'https://freesound.org/data/previews/575/575427_12990837-lq.mp3',
+  casinoNoise: "https://freesound.org/data/previews/342/342309_3793224-lq.mp3"
+}
 
 /*----- app's state (variables) -----*/
+
 let shuffledDeck;
 let playerHand;
 let dealerHand;
 let dealerSum;
 let playerSum;
-let gameStatus
-let winner;
 let betPower;
 let smallBet;
 let bigBet;
 
 /*----- cached element references -----*/
+
+const player = new Audio();
+const chkBoxEl = document.querySelector("input");
 const dealEl = document.querySelector("#deal");
 const headerEl = document.querySelector("h1");
 const playerCardEl = document.getElementById("pcards");
@@ -31,16 +40,16 @@ const playerSpaceEl = document.querySelector("#player");
 const betSpaceEl = document.querySelector("#bet-space");
 const betAgainEl = document.querySelector("#play-again");
 const dealerCardAreaEl = document.querySelector(".dealer-card");
+
 /*----- event listeners -----*/
 
-document.querySelector("#deal").addEventListener("click", setDeal)
-document.querySelector("#hit").addEventListener("click", hit)
-document.querySelector("#stand").addEventListener("click", stand)
-document.getElementById("bet50").addEventListener("click", handleBet50)
-document.getElementById("bet100").addEventListener("click", handleBet100);
-document.getElementById("play-again").addEventListener("click", betAgain);
-{/* <div class="card back-red"></div>
-dealer-card.firstChild.classList.remove("back-blue") */}
+dealEl.addEventListener("click", setDeal)
+hitEl.addEventListener("click", hit)
+standEl.addEventListener("click", stand)
+bet50El.addEventListener("click", handleBet50)
+bet100El.addEventListener("click", handleBet100);
+betAgainEl.addEventListener("click", betAgain);
+
 /*----- functions -----*/
 init()
 function init() {
@@ -53,7 +62,7 @@ function init() {
   bigBet = 0;
   betTotal = 0;
   betPower = 500;
- hitEl.disabled = true;
+  hitEl.disabled = true;
   standEl.disabled = true;
   bet50El.disabled = false;
   bet100El.disabled = false;
@@ -61,11 +70,9 @@ function init() {
   betSpaceEl.style.visibility = "hidden";
   dealerSumEl.style.visibility = "hidden";
   playerSumEl.style.visibility = "hidden";
-   render();
+  render();
 } 
 function betAgain() {
-  console.log(betTotal)
-  console.log(betPower)
   shuffledDeck = getNewShuffledDeck(); 
   playerHand = [];
   dealerHand = [];
@@ -86,29 +93,27 @@ function betAgain() {
   render();
 }
 function handleBet50() {
-  
   smallBet += 50;
   betPower -= 50; 
   betTotal = smallBet + bigBet;
-  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  updateBetPwr();
   betSpaceEl.style.visibility = "visible";
   betSpaceEl.innerHTML = `${betTotal}`;
-
 }
 
 function handleBet100() {
   bigBet += 100;
   betPower -= 100;
   betTotal = smallBet + bigBet;
-  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  updateBetPwr();
   betSpaceEl.style.visibility = "visible";
   betSpaceEl.innerHTML = `${betTotal}`;
 }
+
 function setDeal() {
-  console.log(betTotal)
-  console.log(betPower)
-  
-  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  player.src = "https://freesound.org/data/previews/575/575387_12990837-lq.mp3"
+  player.play();
+  updateBetPwr();
   standEl.disabled = false;
   hitEl.disabled = false;
   dealEl.disabled = true;
@@ -118,198 +123,176 @@ function setDeal() {
   dealerSumEl.style.visibility = "hidden";
   playerSumEl.style.visibility = "visible";
   dealHand();
-    render();
-    
- }
+  render();
+}
 
-function dealHand(hand) {
-    playerHand = [shuffledDeck.pop(), shuffledDeck.pop()]
-    dealerHand = [shuffledDeck.pop(), shuffledDeck.pop()]
-
+function dealHand() {
+  playerHand = [shuffledDeck.pop(), shuffledDeck.pop()]
+  dealerHand = [shuffledDeck.pop(), shuffledDeck.pop()]
 };
+
+function updateBetPwr() {
+  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+}
   
-// make function that flips dealer card
 function flipDealerCard() {
+  dealerSumEl.style.visibility = "visible"
   let dealerCardsHtml = "";
   dealerHand.forEach(function(card) {
     dealerCardsHtml += `<div class="card ${card.face}"></div>`;
-    })
+    dealerSumEl.innerHTML = dealerSum;
+    });
   dealerCardEl.innerHTML = dealerCardsHtml;
-  console.log(dealerCardsHtml)
-}
+};
 
 function render() {
   if(dealerHand.length < 5) {
     getNewShuffledDeck();
   }
-   playerSum = 0; 
+  dealerSum = 0;
+  playerSum = 0; 
   let playerCardsHtml = '';
   playerHand.forEach(function(card) {
     playerCardsHtml += `<div class="card ${card.face}"></div>`;
     playerSum += card.value;
     playerSumEl.innerHTML = playerSum;
-    
   });
   playerCardEl.innerHTML = playerCardsHtml;
-  
- 
-  
-  
-    dealerSum = 0;
-    let dealerCardsHtml = "";
-    dealerHand.forEach(function(card, idx) {
-    dealerCardsHtml += `<div class="card ${idx ? card.face:"back" }"></div>`;
+  let dealerCardsHtml = "";
+  dealerHand.forEach(function(card, idx) {
+    dealerCardsHtml += `<div class="card ${idx ? card.face:"back"}"></div>`;
     dealerSum += card.value;
     dealerSumEl.innerHTML = dealerSum;
-    
-    
-})
-
-  
-
-  
-    
+  })
   dealerCardEl.innerHTML = dealerCardsHtml;
   checkBJ();
+};
+
+function hitLogic() {
+  if(dealerSum === 21 || playerSum > 21) {
+    setTimeout(flipDealerCard, 1000)
+    setTimeout(dealerWins, 1500);
+    } else if (playerSum === 21) {
+    setTimeout(flipDealerCard, 1000)
+    setTimeout(playerWins, 1500);
+    } else if (dealerSum === playerSum) {
+    setTimeout(push, 1500);
+  } return;
+}
+
+function hit() {
+  playerHand.push(shuffledDeck.pop());
+  render();
+  hitLogic();
   
 };
 
-function hit() {
-  
-  flipDealerCard()
-  
-  playerHand.push(shuffledDeck.pop());
-  render();
-  
-  if(dealerSum === 21 || playerSum > 21) {
-    
-    flipDealerCard()
-    dealerWins();
-    return;
-  } else if (playerSum === 21) {
-    
-    flipDealerCard()
-    playerWins();
-    return;
-  } else if(playerSum > 21) {
-    
-    flipDealerCard()
-    dealerWins();
-    return;
-  } else if (dealerSum === playerSum) {
-    push();
-  }return;
-  
-  };
-
-  function push() {
-    console.log(betTotal)
-  console.log(betPower)
-    
-      if(playerSum >= 17 && dealerSum >= 17) {
-        headerEl.innerHTML = "Push";
-        hitEl.disabled = true;
-        standEl.disabled = true;
-        dealEl.disabled = true;
-        betAgainEl.disabled = false;
-        betPower += betTotal;
-      }
+function push() {  
+  if(playerSum >= 17 && dealerSum >= 17) {
+    headerEl.innerHTML = "Push";
+    dealerSumEl.innerHTML = dealerSum;
+    betPower += betTotal;
+    playAgain();
     }
-    
-function dealerWins() {
-  dealerSumEl.style.visibility = "visible"
-  headerEl.innerHTML = "Dealer Wins!";
+}
+
+function playAgain() {
   hitEl.disabled = true;
   standEl.disabled = true;
   dealEl.disabled = true;
   betAgainEl.disabled = false;
-  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  updateBetPwr();
+}
+
+function dealerWins() {
+  player.src = sounds.dealerWins;
+  player.play();
+  dealerSumEl.style.visibility = "visible"
+  headerEl.innerHTML = "Dealer Wins!";
+  playAgain();
 }
 
 function playerWins() {
+  player.src = sounds.playerWins;
+  player.play();
   dealerSumEl.style.visibility = "visible"
   headerEl.innerHTML = "Player Wins!";
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  dealEl.disabled = true;
-  betAgainEl.disabled = false;
   betPower += betTotal *2;
-  betPwrEl.innerHTML = `Betting Power: $${betPower}`
+  playAgain();
+}
+
+function standLogic() {
+  while (dealerSum < 17) {
+    dealerHand.push(shuffledDeck.pop());
+    render();
+  } if (dealerSum > 21) {
+      setTimeout(playerWins, 1500);
+  } else if (dealerSum > playerSum && dealerSum < 22) {
+      setTimeout(dealerWins, 1500);
+  } else if (dealerSum === playerSum) {
+      setTimeout(push, 1500);
+  } else if (playerSum > dealerSum && playerSum < 22) {
+      setTimeout(playerWins, 1500);
+  }else if (dealerSum >=17 && playerSum > dealerSum) {
+    setTimeout(playerWins, 1500);
+  }
 }
 
 function stand() {
-  dealerSumEl.style.visibility = "visible"
+  setTimeout(flipDealerCard, 2000)
   hitEl.disabled = true;
   standEl.disabled = true;
-  dealerHand.push(shuffledDeck.pop());
   render();
-  flipDealerCard()
-  if (dealerSum < 17 || dealerSum < playerSum) {
-    dealerHand.push(shuffledDeck.pop());
-    render();
-    flipDealerCard()
-  }
-  if (dealerSum > 21) {
-    playerWins();
-  } else if (dealerSum > playerSum && dealerSum < 22) {
-    dealerWins();
-  } else if (dealerSum === playerSum) {
-    push();
-    console.log(betTotal)
-  console.log(betPower)
-  }
- 
-  
+  standLogic();
 }
-// if BJ, render card face
+
 function checkBJ() {
   if (playerSum === 21) {
     flipDealerCard()
+    player.src = sounds.blackjack;
+    player.play();
     headerEl.innerHTML = "BlackJack!"
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = true;
-    betAgainEl.disabled = false;
+    playAgain();
     betPower += (betTotal*2.5);
-    betPwrEl.innerHTML = `Betting Power: $${betPower}`
+    updateBetPwr();
   }else if (dealerSum === 21) {
     flipDealerCard()
     headerEl.innerHTML = "Dealer BlackJack!"
-    hitEl.disabled = true;
-    standEl.disabled = true;
-    dealEl.disabled = true;
-    betAgainEl.disabled = false;
+    playAgain();
     betPower -= betTotal;
-    betPwrEl.innerHTML = `Betting Power: $${betPower}`
+    updateBetPwr();
   }
 }
 
 function getNewShuffledDeck() {
-    // Create a copy of the masterDeck (leave masterDeck untouched!)
-    const tempDeck = [...masterDeck];
-    const newShuffledDeck = [];
-    while (tempDeck.length) {
-      // Get a random index for a card still in the tempDeck
-      const rndIdx = Math.floor(Math.random() * tempDeck.length);
-      // Note the [0] after splice - this is because splice always returns an array and we just want the card object in that array
-      newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
-    }
-    if (newShuffledDeck.length < 4) {
-      getNewShuffledDeck(); 
-    }
-    return newShuffledDeck;
+  const tempDeck = [...masterDeck];
+  const newShuffledDeck = [];
+  while (tempDeck.length) {
+    const rndIdx = Math.floor(Math.random() * tempDeck.length);
+    newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
+  }
+  if (newShuffledDeck.length < 4) {
+    getNewShuffledDeck(); 
+  }
+  return newShuffledDeck;
     
   }  
 
   function buildMasterDeck() {
-      const deck = [];
+    const deck = [];
     suits.forEach(function(suit) {
-        ranks.forEach(function(rank) {
-          deck.push({ // Push those into masterDeck object array //
-            face: `${suit}${rank}`,
-            value: Number(rank) || (rank === "A" ? 11 : 10),
-          })
+      ranks.forEach(function(rank) {
+        deck.push({ // Push those into masterDeck object array //
+          face: `${suit}${rank}`,
+          value: Number(rank) || (rank === "A" ? 11 : 10),
         })
-      }) 
-      return deck;
-    }  
+      })
+    }) 
+    return deck;
+  };  
+
+function handleChkBox() {
+  player.src = sounds.casinoNoise;
+  chkBoxEl.checked ? player.play() : player.pause();
+}
+
