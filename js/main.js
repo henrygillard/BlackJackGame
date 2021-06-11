@@ -17,7 +17,7 @@ let playerHand;
 let dealerHand;
 let dealerSum;
 let playerSum;
-let betPower;
+let betPower = 500;
 let smallBet;
 let bigBet;
 
@@ -41,15 +41,15 @@ const betSpaceEl = document.querySelector("#bet-space");
 const betAgainEl = document.querySelector("#play-again");
 const dealerCardAreaEl = document.querySelector(".dealer-card");
 
-/*----- event listeners -----*/
-
+/*----- event listeners -----*/ 
 chkBoxEl.addEventListener("change", handleChkBox)
+
 dealEl.addEventListener("click", setDeal)
 hitEl.addEventListener("click", hit)
 standEl.addEventListener("click", stand)
 bet50El.addEventListener("click", handleBet50)
 bet100El.addEventListener("click", handleBet100);
-betAgainEl.addEventListener("click", betAgain);
+betAgainEl.addEventListener("click", init);
 
 /*----- functions -----*/
 init()
@@ -62,26 +62,7 @@ function init() {
   smallBet = 0;
   bigBet = 0;
   betTotal = 0;
-  betPower = 500;
-  hitEl.disabled = true;
-  standEl.disabled = true;
-  bet50El.disabled = false;
-  bet100El.disabled = false;
-  betAgainEl.disabled = true;
-  betSpaceEl.style.visibility = "hidden";
-  dealerSumEl.style.visibility = "hidden";
-  playerSumEl.style.visibility = "hidden";
-  render();
-} 
-function betAgain() {
-  shuffledDeck = getNewShuffledDeck(); 
-  playerHand = [];
-  dealerHand = [];
-  playerSum = 0;
-  dealerSum = 0;
-  smallBet = 0;
-  bigBet = 0;
-  betTotal = 0;
+  betPower;
   dealEl.disabled = false;
   hitEl.disabled = true;
   standEl.disabled = true;
@@ -92,7 +73,8 @@ function betAgain() {
   dealerSumEl.style.visibility = "hidden";
   playerSumEl.style.visibility = "hidden";
   render();
-}
+} 
+
 function handleBet50() {
   smallBet += 50;
   betPower -= 50; 
@@ -115,6 +97,7 @@ function setDeal() {
   player.src = "https://freesound.org/data/previews/575/575387_12990837-lq.mp3"
   player.play();
   updateBetPwr();
+  dealEl.disabled = false;
   standEl.disabled = false;
   hitEl.disabled = false;
   dealEl.disabled = true;
@@ -296,4 +279,3 @@ function handleChkBox() {
   player.src = sounds.casinoNoise;
   chkBoxEl.checked ? player.play() : player.pause();
 }
-
