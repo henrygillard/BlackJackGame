@@ -170,6 +170,7 @@ p {
    justify-content: center;
    align-items: center;
    visibility: hidden;
+   box-shadow: 7px 7px 8px black;
 }
 card.back {
    background-image: url("../images/backs/blue.svg")
@@ -181,6 +182,10 @@ footer {
     background-image: url("https://i.imgur.com/4KT5G31.jpg");
     height: 150px;
     background-size: cover;
+}
+
+input {
+    color: white;
 }
 
 
@@ -202,6 +207,7 @@ html, * {
   div.card {
       width: 8.0em;
       height: 11em;
+      box-shadow: 7px 7px 8px black;
   }
   
   button {

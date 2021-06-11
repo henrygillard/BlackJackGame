@@ -42,7 +42,15 @@ const betAgainEl = document.querySelector("#play-again");
 const dealerCardAreaEl = document.querySelector(".dealer-card");
 
 /*----- event listeners -----*/ 
+<<<<<<< HEAD
 
+=======
+chkBoxEl.addEventListener("change", handleChkBox)
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
+>>>>>>> gh-pages
 dealEl.addEventListener("click", setDeal)
 hitEl.addEventListener("click", hit)
 standEl.addEventListener("click", stand)
