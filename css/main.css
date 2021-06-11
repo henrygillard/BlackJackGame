@@ -10,9 +10,9 @@
 body {
     display: flex;
     flex-direction: column;
-    width: 100vmin;
     height: 100vmin;
     border: solid;
+    margin: 0px;
     
     
 }
